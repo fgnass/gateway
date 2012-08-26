@@ -1,0 +1,24 @@
+{
+  "name": "gateway",
+  "description": "Middleware to execute CGI scripts",
+  "homepage": "http://github.com/fgnass/gateway",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fgnass/gateway.git"
+  },
+  "author": {
+    "name": "Felix Gnass",
+    "url": "https://twitter.com/fgnass"
+  },
+  "main": "./gateway",
+  "keywords": ["connect", "middleware", "cgi", "php"],
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "devDependencies": {
+    "mocha": "~1.4.0",
+    "should": "~1.1.0",
+    "supertest": "~0.1.2"
+  }
+}
