@@ -1,9 +1,38 @@
 # gateway
 
-## Middleware to execute CGI scripts
+## Node.js middleware to execute CGI scripts
 
-License
--------
+Purpose of this module is to allow development tools like
+[Yeoman](http://yeoman.io) or [Livestyle](https://github.com/One-com/livestyle)
+to serve PHP files (and possibly other scripting languages) directly.
+
+To make this work you need the `php-cgi` binaray in your PATH.
+
+## Usage
+
+    var http = require('http');
+    var gateway = require('gateway');
+
+    var app = http.createServer(gateway(__dirname, {
+      '.php': 'php-cgi'
+    }))
+
+
+## Installing php-cgi
+
+The `php-cgi` binaray can be installed via Homebrew:
+
+    brew tap homebrew/dupes
+    brew tap josegonzalez/homebrew-php
+    brew install php54
+
+Alternatively you can also use one of these scripts:
+
+* [php-build](http://chh.github.com/php-build/) which is used by [Travis CI](http://travis-ci.org/)
+* [phpbrew](https://github.com/c9s/phpbrew)
+
+
+## License
 
 (The MIT License)
 
