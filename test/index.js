@@ -1,7 +1,10 @@
 var gateway = require('../gateway')
   , http = require('http')
   , request = require('supertest')
-  , app = http.createServer(gateway(__dirname))
+  , app = http.createServer(gateway(__dirname, {
+    '.php': 'php-cgi',
+    '.foo': __dirname + '/non-existing-interpreter'
+  }))
 
 describe('gateway()', function() {
   it('should pass on the query string', function(done) {
@@ -30,6 +33,12 @@ describe('gateway()', function() {
     .expect(200)
     .expect('Content-Type', 'text/plain')
     .expect('Plain Text Response\n')
+    .end(done)
+  })
+  it('should return 500 if interpreter is not found', function(done) {
+    request(app)
+    .get('/test.foo')
+    .expect(500)
     .end(done)
   })
 })

@@ -19,7 +19,11 @@ module.exports = function cgi(docroot, options) {
       , path = url.pathname
       , handler = options[extname(path)]
 
-    if (!next) next = function() { res.end() }
+    if (!next) next = function(err) {
+      if (err) res.writeHead(500, err)
+      res.end()
+    }
+
     if (!handler) return next()
 
     var script = normalize(join(docroot, path))
@@ -109,7 +113,10 @@ module.exports = function cgi(docroot, options) {
         }
       }
     })
-    child.on('close', res.end)
+    child.on('exit', function(code) {
+      if (code === 0) return res.end()
+      next(handler + ' exited with code ' + code)
+    })
   }
 
 }
