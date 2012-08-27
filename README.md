@@ -31,6 +31,10 @@ Alternatively you can also use one of these scripts:
 * [php-build](http://chh.github.com/php-build/) which is used by [Travis CI](http://travis-ci.org/)
 * [phpbrew](https://github.com/c9s/phpbrew)
 
+## Note
+
+The gateway middleware doesn't support `cgi-bin` directories. If you want to
+serve CGI scripts with a shebang please use [node-cgi](https://github.com/TooTallNate/node-cgi) instead.
 
 ## License
 
