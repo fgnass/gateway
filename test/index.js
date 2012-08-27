@@ -1,12 +1,38 @@
 var gateway = require('../gateway')
   , http = require('http')
   , request = require('supertest')
-  , app = http.createServer(gateway(__dirname, {
-    '.php': 'php-cgi',
-    '.foo': __dirname + '/non-existing-interpreter'
-  }))
+
+var middleware = gateway(__dirname, {
+  '.php': 'php-cgi',
+  '.foo': __dirname + '/non-existing-interpreter'
+})
+
+var app = http.createServer(function(req, res) {
+  middleware(req, res, function(err) {
+    res.writeHead(204, err)
+    res.end()
+  })
+})
 
 describe('gateway()', function() {
+  it('should 404', function(done) {
+    request(app)
+    .get('/no-such-file.php')
+    .expect(404)
+    .end(done)
+  })
+  it('should not handle unknown extensions', function(done) {
+    request(app)
+    .get('/test.bar')
+    .expect(204)
+    .end(done)
+  })
+  it('should return 500 if interpreter is not found', function(done) {
+    request(app)
+    .get('/test.foo')
+    .expect(500)
+    .end(done)
+  })
   it('should pass on the query string', function(done) {
     request(app)
     .get('/echo.php?echo=hello')
@@ -29,16 +55,32 @@ describe('gateway()', function() {
   })
   it('should return the body verbatim', function(done) {
     request(app)
-    .get('/text.php')
+    .get('/index.php')
     .expect(200)
     .expect('Content-Type', 'text/plain')
-    .expect('Plain Text Response\n')
+    .expect('Hello\n')
     .end(done)
   })
-  it('should return 500 if interpreter is not found', function(done) {
+  it('should serve index files', function(done) {
     request(app)
-    .get('/test.foo')
-    .expect(500)
+    .get('/')
+    .expect(200)
+    .expect('Content-Type', 'text/plain')
+    .expect('Hello\n')
+    .end(done)
+  })
+  it('should send a redirect for directories w/o a slash', function(done) {
+    request(app)
+    .get('/sub')
+    .expect(301)
+    .expect('Location', '/sub/')
+    .end(done)
+  })
+  it('should serve index files from sub-directories', function(done) {
+    request(app)
+    .get('/sub/')
+    .expect(200)
+    .expect('Hello\n')
     .end(done)
   })
 })
