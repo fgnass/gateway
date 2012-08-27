@@ -20,7 +20,8 @@ To make this work you need the `php-cgi` binaray in your PATH.
 
 ## Installing php-cgi
 
-The `php-cgi` binaray can be installed via Homebrew:
+The `php-cgi` binary can be installed via Homebrew by tapping the
+[homebrew-php](https://github.com/josegonzalez/homebrew-php) repository:
 
     brew tap homebrew/dupes
     brew tap josegonzalez/homebrew-php
