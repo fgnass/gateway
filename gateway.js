@@ -109,7 +109,7 @@ module.exports = function cgi(docroot, options) {
         }
       }
     })
-    child.on('close', next)
+    child.on('close', res.end)
   }
 
 }
