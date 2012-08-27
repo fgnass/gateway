@@ -50,6 +50,7 @@ module.exports = function cgi(docroot, options) {
       DOCUMENT_ROOT: docroot,
       SERVER_NAME: hostName,
       SERVER_PORT: port || 80,
+      HTTPS: req.connection.encrypted ? 'On' : 'Off',
       REDIRECT_STATUS: 200,
       SCRIPT_NAME: path,
       REQUEST_URI: path,
