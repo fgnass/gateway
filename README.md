@@ -10,13 +10,14 @@ To make this work you need the `php-cgi` binaray in your PATH.
 
 ## Usage
 
-    var http = require('http');
-    var gateway = require('gateway');
+```javascript
+var http = require('http');
+var gateway = require('gateway');
 
-    var app = http.createServer(gateway(__dirname, {
-      '.php': 'php-cgi'
-    }))
-
+var app = http.createServer(gateway(__dirname, {
+  '.php': 'php-cgi'
+}))
+```
 
 ## Installing php-cgi
 
