@@ -2,7 +2,7 @@ var gateway = require('../gateway')
   , http = require('http')
   , request = require('supertest')
 
-var middleware = gateway(__dirname, {
+var middleware = gateway(__dirname + '/htdocs', {
   '.php': 'php-cgi',
   '.foo': __dirname + '/non-existing-interpreter'
 })
