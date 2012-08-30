@@ -1,1 +1,1 @@
-<?php echo $_REQUEST['echo'] ?>
+<?php echo $_SERVER['QUERY_STRING'] ?>

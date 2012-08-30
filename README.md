@@ -1,6 +1,7 @@
 # gateway
-
 ## Node.js middleware to execute CGI scripts
+
+[![Build Status](https://secure.travis-ci.org/fgnass/gateway.png)](http://travis-ci.org/fgnass/gateway)
 
 Purpose of this module is to allow development tools like
 [Yeoman](http://yeoman.io) or [Livestyle](https://github.com/One-com/livestyle)
@@ -27,11 +28,6 @@ The `php-cgi` binary can be installed via Homebrew by tapping the
     brew tap homebrew/dupes
     brew tap josegonzalez/homebrew-php
     brew install php54
-
-Alternatively you can also use one of these scripts:
-
-* [php-build](http://chh.github.com/php-build/) which is used by [Travis CI](http://travis-ci.org/)
-* [phpbrew](https://github.com/c9s/phpbrew)
 
 ## Note
 

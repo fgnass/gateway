@@ -1,0 +1,1 @@
+sh $SCRIPT_FILENAME

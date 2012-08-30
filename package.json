@@ -14,7 +14,7 @@
   "main": "./gateway",
   "keywords": ["connect", "middleware", "cgi", "php"],
   "scripts": {
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha --grep shell"
   },
   "devDependencies": {
     "mocha": "~1.4.0",
