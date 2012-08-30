@@ -1,1 +1,3 @@
-<?php echo $_SERVER['QUERY_STRING'] ?>
+<?php
+header('Content-Type: text/plain');
+echo $_SERVER['QUERY_STRING'];
