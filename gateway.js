@@ -90,17 +90,18 @@ module.exports = function gateway(docroot, options) {
         env[name] = req.headers[header]
       }
 
-      var child = spawn(handler, [], {
-        'env': env
-      })
-
-      req.pipe(child.stdin)
-      if (options.stderr) child.stderr.pipe(options.stderr)
-
       var body
         , line = []
         , statusCode
         , reason
+        , exitCode
+
+      var child = spawn(handler, [], {
+        'env': env
+      })
+      .on('exit', function(code) {
+        exitCode = code
+      })
 
       child.stdout.on('data', function(buf) {
         if (body) return res.write(buf)
@@ -133,10 +134,14 @@ module.exports = function gateway(docroot, options) {
           }
         }
       })
-      child.on('exit', function(code) {
-        if (code === 0) return res.end()
-        error(500, handler + ' exited with code ' + code)
+      .on('end', function() {
+        if (exitCode && !body) error(500, handler + ' exited with code ' + exitCode)
+        else res.end()
       })
+
+      req.pipe(child.stdin)
+      if (options.stderr) child.stderr.pipe(options.stderr)
+
     })
   }
 }

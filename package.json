@@ -2,7 +2,7 @@
   "name": "gateway",
   "description": "Middleware to execute CGI scripts",
   "homepage": "http://github.com/fgnass/gateway",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/fgnass/gateway.git"
