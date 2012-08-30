@@ -32,12 +32,9 @@ The `php-cgi` binary can be installed via Homebrew by tapping the
 ## Directories
 
 If the middleware encounters a URL that points to a directory, it will look for
-an index file matching any of the registered extensions.
-
-If the URL points to a valid directory but the path does not end with a slash,
-a permanent redirect is sent.
-
-## Note
+an index file matching any of the registered extensions. If the URL points to a
+valid directory but the path does not end with a slash, a permanent redirect is
+sent.
 
 The gateway middleware doesn't support `cgi-bin` directories. If you want to
 serve CGI scripts with a shebang please use [node-cgi](https://github.com/TooTallNate/node-cgi) instead.
