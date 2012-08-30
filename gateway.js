@@ -94,50 +94,56 @@ module.exports = function gateway(docroot, options) {
         , line = []
         , statusCode
         , reason
-        , exitCode
+        , exit
+
+      function done() {
+        if (exit === undefined) return
+        if (exit && !body) error(500, handler + ' exited with code ' + exit)
+        else res.end()
+      }
 
       var child = spawn(handler, [], {
         'env': env
       })
       .on('exit', function(code) {
-        exitCode = code
+        exit = code
+        done()
       })
 
-      child.stdout.on('data', function(buf) {
-        if (body) return res.write(buf)
+      child.stdout
+        .on('end', done)
+        .on('data', function(buf) {
+          if (body) return res.write(buf)
 
-        for (var i=0; i < buf.length; i++) {
-          var c = buf[i]
-          if (c == 0xA) {
-            if (!line.length) {
-              body = true
-              res.writeHead(statusCode || 200, reason)
-              res.write(buf.slice(i+1))
-              return
-            }
-
-            var s = line.join('')
-            line = []
-            if (!statusCode) {
-              var m = statusExp.exec(s)
-              if (m) {
-                statusCode = m[1]
-                reason = m[2]
-                continue
+          for (var i=0; i < buf.length; i++) {
+            var c = buf[i]
+            if (c == 0xA) {
+              if (!line.length) {
+                body = true
+                res.writeHead(statusCode || 200, reason)
+                res.write(buf.slice(i+1))
+                return
               }
+
+              var s = line.join('')
+              line = []
+              if (!statusCode) {
+                var m = statusExp.exec(s)
+                if (m) {
+                  statusCode = m[1]
+                  reason = m[2]
+                  continue
+                }
+              }
+              var idx = s.indexOf(':')
+              res.setHeader(s.slice(0, idx), s.slice(idx+1).trim())
             }
-            var idx = s.indexOf(':')
-            res.setHeader(s.slice(0, idx), s.slice(idx+1).trim())
-          }
-          else if (c != 0xD) {
-            line.push(String.fromCharCode(c))
+            else if (c != 0xD) {
+              line.push(String.fromCharCode(c))
+            }
           }
         }
-      })
-      .on('end', function() {
-        if (exitCode && !body) error(500, handler + ' exited with code ' + exitCode)
-        else res.end()
-      })
+      )
 
       req.pipe(child.stdin)
       if (options.stderr) child.stderr.pipe(options.stderr)
