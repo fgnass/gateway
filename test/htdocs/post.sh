@@ -1,3 +1,3 @@
 echo "Content-Type: text/plain"
 echo
-cat < /dev/stdin
+read x; echo $x;

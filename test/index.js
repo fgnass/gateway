@@ -76,7 +76,7 @@ function test(ext) {
       .type('form')
       .send({foo: 'Hello'})
       .expect(200)
-      .expect('foo=Hello')
+      .expect('foo=Hello\n')
       .end(done)
     })
     it('should send a redirect for directories w/o a slash', function(done) {
