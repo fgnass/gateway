@@ -70,6 +70,15 @@ function test(ext) {
       .expect('Hello\n')
       .end(done)
     })
+    it('should echo post params', function(done) {
+      request(app)
+      .post('/post.' + ext)
+      .type('form')
+      .send({foo: 'Hello'})
+      .expect(200)
+      .expect('foo=Hello')
+      .end(done)
+    })
     it('should send a redirect for directories w/o a slash', function(done) {
       request(app)
       .get('/' + ext)
