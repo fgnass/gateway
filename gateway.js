@@ -37,6 +37,8 @@ module.exports = function gateway(docroot, options) {
     var url = URL.parse(req.url)
       , path = normalize(join(docroot, url.pathname))
 
+    req.pause()
+
     // look for index.* files
     resolveIndexFiles(path, exts, function(file, stat) {
 
@@ -89,6 +91,12 @@ module.exports = function gateway(docroot, options) {
         var name = 'HTTP_' + header.toUpperCase().replace(/-/g, '_')
         env[name] = req.headers[header]
       }
+
+      if ('content-length' in req.headers)
+        env.CONTENT_LENGTH = req.headers['content-length']
+
+      if ('content-type' in req.headers)
+        env.CONTENT_TYPE = req.headers['content-type']
 
       var body
         , line = []
@@ -146,6 +154,7 @@ module.exports = function gateway(docroot, options) {
       )
 
       req.pipe(child.stdin)
+      req.resume()
       if (options.stderr) child.stderr.pipe(options.stderr)
 
     })
