@@ -103,9 +103,10 @@ module.exports = function gateway(docroot, options) {
         , statusCode
         , reason
         , exit
+        , end
 
       function done() {
-        if (exit === undefined) return
+        if (exit === undefined || !end) return
         if (exit && !body) error(500, handler + ' exited with code ' + exit)
         else res.end()
       }
@@ -119,7 +120,10 @@ module.exports = function gateway(docroot, options) {
       })
 
       child.stdout
-        .on('end', done)
+        .on('end', function() {
+          end = true
+          done()
+        })
         .on('data', function(buf) {
           if (body) return res.write(buf)
 
