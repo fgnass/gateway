@@ -111,7 +111,13 @@ module.exports = function gateway(docroot, options) {
         else res.end()
       }
 
-      var child = spawn(handler, [], {
+      var handlerCommand = handler,
+          handlerArguments = []
+      if (handler instanceof Array) {
+      	handlerCommand = handler[0]
+      	handlerArguments = handler.slice(1)
+      }
+      var child = spawn(handlerCommand, handlerArguments, {
         'env': env
       })
       .on('exit', function(code) {
