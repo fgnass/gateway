@@ -2,7 +2,7 @@
   "name": "gateway",
   "description": "Middleware to execute CGI scripts",
   "homepage": "http://github.com/fgnass/gateway",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/fgnass/gateway.git"
@@ -12,7 +12,12 @@
     "url": "https://twitter.com/fgnass"
   },
   "main": "./gateway",
-  "keywords": ["connect", "middleware", "cgi", "php"],
+  "keywords": [
+    "connect",
+    "middleware",
+    "cgi",
+    "php"
+  ],
   "scripts": {
     "test": "./node_modules/.bin/mocha -t 30000 --grep shell"
   },
