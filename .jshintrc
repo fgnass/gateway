@@ -1,0 +1,44 @@
+// See http://www.jshint.com/options/
+{
+  /* Additional globals */
+  "predef": [
+    "describe",
+    "it"
+  ],
+
+  /* Enforcing Options */
+
+  "bitwise"       : false,  // Switches on warnings about the use of bitwise operators such as ^ (XOR), | (OR) and others
+  "curly"         : false,  // Switches on warnings when no curly braces are being used around blocks for loops and conditional.
+                            // NOTE: If you turned this off, only omit curlies on single and same line statements
+  "eqeqeq"        : false,  // Switches on warnings about the use of == and !=
+  "forin"         : false,  // Switches on warnings about when code is not wrapped in .hasOwnProperty condition in for in loops
+  "immed"         : true,   // Switches on warnings for immediately invoked functions which are not wrapped in parenthesis
+  "latedef"       : false,  // Switches on warnings for using variables or functions prior of their definition
+  "newcap"        : true,   // Switches on warnings if uncapitalised constructor function names are being used
+  "noarg"         : true,   // Switches on warnings when arguments.caller and arguments.callee are being used
+  "noempty"       : false,  // Switches on warnings when empty blocks are being used
+  "plusplus"      : false,  // Switches on warnings when using the unary in-/de-crement operators ++ and --
+  "regexp"        : true,   // Switches on warnings for unsafe usage of '.' in regular expressions
+  "undef"         : true,   // Switches on warnings when using undeclared variables
+                            // NOTE: Have not being able to switch this off and it always warned me during my tests
+  "strict"        : false,  // Switches on warnings to use strict in all functions
+  "trailing"      : true,   // Switches on warnings for using trailing whitespace at the end of lines
+
+
+  /* Relaxing Options */
+
+  "asi"           : true,   // Switches off warnings about missing semi-colons
+  "boss"          : true,   // Switches off warnings about assignments in places where conditions are expected
+  "evil"          : true,   // Switches off warnings about the use of eval
+  "expr"          : true,   // Switches off warnings when using expressions in places where assignments are expected
+  "laxbreak"      : true,   // Switches off warnings about improper line breaks
+  "laxcomma"      : true,   // Switches off warnings about leading commas in multi-line var declarations
+  "loopfunc"      : true,   // Switches off warnings about functions inside of loops
+  "proto"         : true,   // Switches off warnings when using the __proto__ property
+
+  /* Environments */
+
+  "node"          : true    // Allows the use of globals for code running in nodejs, i.e. 'global'
+
+}
