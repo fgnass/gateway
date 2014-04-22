@@ -11,7 +11,9 @@ var fs = require('fs')
 module.exports = function gateway(docroot, options) {
 
   // docroot is required
-  if (!docroot) throw new Error('gateway() requires docroot')
+  if (!docroot) throw new Error('gateway(...) requires a docroot')
+
+  docroot = normalize(docroot)
 
   // default mapping
   if (!options) options = {
