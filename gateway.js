@@ -35,6 +35,7 @@ module.exports = function gateway(docroot, options) {
     }
 
     var url = URL.parse(req.url)
+      , originalUrl = req.originalUrl ? URL.parse(req.originalUrl) : url
       , path = normalize(join(docroot, url.pathname))
 
     req.pause()
@@ -78,8 +79,8 @@ module.exports = function gateway(docroot, options) {
         SERVER_PORT: host[1] || 80,
         HTTPS: req.connection.encrypted ? 'On' : 'Off',
         REDIRECT_STATUS: 200,
-        SCRIPT_NAME: url.pathname,
-        REQUEST_URI: url.pathname,
+        SCRIPT_NAME: originalUrl.pathname,
+        REQUEST_URI: originalUrl.pathname + originalUrl.search,
         SCRIPT_FILENAME: file,
         PATH_TRANSLATED: file,
         REQUEST_METHOD: req.method,
