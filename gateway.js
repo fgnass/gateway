@@ -82,7 +82,7 @@ module.exports = function gateway(docroot, options) {
         HTTPS: req.connection.encrypted ? 'On' : 'Off',
         REDIRECT_STATUS: 200,
         SCRIPT_NAME: originalUrl.pathname,
-        REQUEST_URI: originalUrl.pathname + originalUrl.search,
+        REQUEST_URI: originalUrl.path,
         SCRIPT_FILENAME: file,
         PATH_TRANSLATED: file,
         REQUEST_METHOD: req.method,
