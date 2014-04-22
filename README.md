@@ -20,6 +20,17 @@ var app = http.createServer(gateway(__dirname, {
 }))
 ```
 
+### Usage with command line arguments
+```javascript
+var http = require('http');
+var gateway = require('gateway');
+
+var app = http.createServer(gateway(__dirname, {
+  '.php': ['php-cgi', '-d', 'auto_prepend_file=/path/to/auto_prepended.php']
+  }
+}))
+```
+
 ## Installing php-cgi
 
 The `php-cgi` binary can be installed via Homebrew by tapping the
