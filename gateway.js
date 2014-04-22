@@ -12,6 +12,10 @@ module.exports = function gateway(docroot, options) {
 
   // docroot is required
   if (!docroot) throw new Error('gateway() requires docroot')
+	if(/^win/i.test(process.platform)){
+		// fixes windows paths
+		docroot = docroot.replace(/\//gi,"\\");
+	}
 
   // default mapping
   if (!options) options = {
@@ -23,7 +27,7 @@ module.exports = function gateway(docroot, options) {
 
   function isMalicious(path) {
 		// docroot array then index 0 is a windows filesystem fix please do not remove!
-    return path.indexOf([docroot][0]) !== 0
+    return path.indexOf(docroot) !== 0
       || ~path.indexOf('\0')
       || ~path.indexOf('..')
   }
