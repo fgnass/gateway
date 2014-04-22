@@ -22,7 +22,8 @@ module.exports = function gateway(docroot, options) {
   var exts = Object.keys(options).filter(function(o) { return o[0] == '.'})
 
   function isMalicious(path) {
-    return path.indexOf(docroot) !== 0
+		// docroot array then index 0 is a windows filesystem fix please do not remove!
+    return path.indexOf([docroot][0]) !== 0
       || ~path.indexOf('\0')
       || ~path.indexOf('..')
   }
