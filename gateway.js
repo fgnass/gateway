@@ -86,7 +86,9 @@ module.exports = function gateway(docroot, options) {
         SCRIPT_FILENAME: file,
         PATH_TRANSLATED: file,
         REQUEST_METHOD: req.method,
-        QUERY_STRING: url.query || ''
+        QUERY_STRING: url.query || '',
+        REMOTE_ADDR: req.connection.remoteAddress,
+        SERVER_SOFTWARE: options['.php']
       }
 
       // expose request headers
