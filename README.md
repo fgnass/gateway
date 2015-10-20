@@ -34,11 +34,12 @@ var app = http.createServer(gateway(__dirname, {
 ## Installing php-cgi
 
 The `php-cgi` binary can be installed via Homebrew by tapping the
-[homebrew-php](https://github.com/josegonzalez/homebrew-php) repository:
+[homebrew-php](https://github.com/Homebrew/homebrew-php) repository:
 
     brew tap homebrew/dupes
-    brew tap josegonzalez/homebrew-php
-    brew install php54
+    brew tap homebrew/versions
+    brew tap homebrew/homebrew-php
+    brew install php56
 
 ## Directories
 
