@@ -47,7 +47,7 @@ module.exports = function gateway(docroot, options) {
 
       // file does not exist
       if (!file) {
-        if (options[extname(path)]) {
+        if (options[extname(path)] && options.no404 !== true) {
           // ... but a handler is registered for the extension
           res.writeHead(404)
           return res.end()
